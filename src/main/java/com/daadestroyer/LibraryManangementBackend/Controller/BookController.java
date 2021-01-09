@@ -1,6 +1,7 @@
 package com.daadestroyer.LibraryManangementBackend.Controller;
 
 import com.daadestroyer.LibraryManangementBackend.Entity.Book;
+import com.daadestroyer.LibraryManangementBackend.Entity.User;
 import com.daadestroyer.LibraryManangementBackend.Repository.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,5 +81,30 @@ public class BookController {
             }
         }
         return list;
+    }
+
+    //delete-book-by-id API
+    @DeleteMapping("/delete-book-by-id/{id}")
+    public String deleteUserById(@PathVariable int id) {
+        Optional<Book> optionalUser = this.bookRepo.findById(id);
+        if (!optionalUser.isPresent()) {
+            return "Book not found...";
+        } else {
+            this.bookRepo.deleteById(id);
+            return "Book " + id + " deleted successfully...";
+        }
+    }
+
+    //delete-all-user API
+    @DeleteMapping("/delete-all-book")
+    public String deleteAllUsers() {
+        List<Book> list = this.bookRepo.findAll();
+        if(list.size()>0){
+            this.bookRepo.deleteAll();
+            return "All book deleted successfully...";
+        }
+        else{
+            return "No book exist...";
+        }
     }
 }
