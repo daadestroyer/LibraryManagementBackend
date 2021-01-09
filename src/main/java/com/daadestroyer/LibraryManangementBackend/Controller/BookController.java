@@ -69,4 +69,16 @@ public class BookController {
         return list;
     }
 
+    //search-book-by-isbn API
+    @GetMapping("/search-book-by-isbn/{isbn}")
+    public List<Book> getAllBookByIsbn(@PathVariable String isbn) {
+        List<Book> books = this.bookRepo.findAll();
+        ArrayList<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getIsbn_number().equals(isbn)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
 }
