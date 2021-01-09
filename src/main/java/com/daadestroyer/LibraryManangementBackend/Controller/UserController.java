@@ -12,7 +12,7 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-
+    // add user API
     @PostMapping("/add-user")
     @ResponseStatus(HttpStatus.CREATED)
     public String addUser(@RequestBody User user) {
