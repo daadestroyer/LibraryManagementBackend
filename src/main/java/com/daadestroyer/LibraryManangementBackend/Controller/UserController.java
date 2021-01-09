@@ -27,21 +27,32 @@ public class UserController {
 
     // get-user API
     @GetMapping("/get-user/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable int id){
+    public ResponseEntity<?> getUserById(@PathVariable int id) {
         Optional<User> user = this.userRepo.findById(id);
-        if(user.isPresent()){
-            return new ResponseEntity<>(user,HttpStatus.FOUND);
-        }
-        else{
-            return new ResponseEntity<>("User not found...",HttpStatus.NOT_FOUND);
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user, HttpStatus.FOUND);
+        } else {
+            return new ResponseEntity<>("User not found...", HttpStatus.NOT_FOUND);
         }
     }
 
     // get-all-user API
     @GetMapping("/get-all-user")
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         List<User> user = this.userRepo.findAll();
         return user;
+    }
+
+    //delete-user-by-id API
+    @DeleteMapping("/delete-user-by-id/{id}")
+    public String deleteUserById(@PathVariable int id) {
+        Optional<User> optionalUser = this.userRepo.findById(id);
+        if (!optionalUser.isPresent()) {
+            return "User not found...";
+        } else {
+            this.userRepo.deleteById(id);
+            return "User " + id + " deleted successfully...";
+        }
     }
 
 }
