@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,4 +34,13 @@ public class BookController {
             return new ResponseEntity<>("Book Not Found...", HttpStatus.NOT_FOUND);
         }
     }
+
+    //get-all-book API
+    @GetMapping("/get-all-book")
+    public List<Book> getAllBook(){
+        List<Book> book = this.bookRepo.findAll();
+        return book;
+    }
+
+
 }

@@ -37,6 +37,7 @@ public class UserController {
         }
     }
 
+    // get-all-user API
     @GetMapping("/get-all-user")
     public List<User> getAllUser(){
         List<User> user = this.userRepo.findAll();
