@@ -27,7 +27,7 @@ public class UserController {
 
     // get-user API
     @GetMapping("/get-user/{id}")
-    public ResponseEntity<?> getUser(@PathVariable int id){
+    public ResponseEntity<?> getUserById(@PathVariable int id){
         Optional<User> user = this.userRepo.findById(id);
         if(user.isPresent()){
             return new ResponseEntity<>(user,HttpStatus.FOUND);
