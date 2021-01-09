@@ -20,36 +20,49 @@ public class BookController {
     // add-book API
     @PostMapping("/add-book")
     @ResponseStatus(HttpStatus.CREATED)
-    public String addBook(@RequestBody Book book){
-            this.bookRepo.save(book);
-            return "Book Created";
+    public String addBook(@RequestBody Book book) {
+        this.bookRepo.save(book);
+        return "Book Created";
     }
 
     // get-book by Id API
     @GetMapping("/get-book/{id}")
-    public ResponseEntity<?> getBookById(@PathVariable int id){
+    public ResponseEntity<?> getBookById(@PathVariable int id) {
         Optional<Book> book = this.bookRepo.findById(id);
-        if(book.isPresent()){
+        if (book.isPresent()) {
             return new ResponseEntity<>(book, HttpStatus.FOUND);
-        }else{
+        } else {
             return new ResponseEntity<>("Book Not Found...", HttpStatus.NOT_FOUND);
         }
     }
 
     //get-all-book API
     @GetMapping("/get-all-book")
-    public List<Book> getAllBook(){
+    public List<Book> getAllBook() {
         List<Book> book = this.bookRepo.findAll();
         return book;
     }
 
     //search-book-by-author API
     @GetMapping("/search-book-by-author/{author}")
-    public List<Book> getBookByAuthor(@PathVariable String author){
+    public List<Book> getBookByAuthor(@PathVariable String author) {
         List<Book> books = this.bookRepo.findAll();
         ArrayList<Book> list = new ArrayList<>();
-        for(Book book : books){
-            if(book.getAuthor().equals(author)){
+        for (Book book : books) {
+            if (book.getAuthor().equals(author)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
+
+    //search-book-by-subject API
+    @GetMapping("/search-book-by-subject/{subject}")
+    public List<Book> getAllBookBySubject(@PathVariable String subject) {
+        List<Book> books = this.bookRepo.findAll();
+        ArrayList<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getSubject().equals(subject)) {
                 list.add(book);
             }
         }
