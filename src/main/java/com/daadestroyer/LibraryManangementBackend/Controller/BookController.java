@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +43,17 @@ public class BookController {
         return book;
     }
 
+    //search-book-by-author API
+    @GetMapping("/search-book-by-author/{author}")
+    public List<Book> getBookByAuthor(@PathVariable String author){
+        List<Book> books = this.bookRepo.findAll();
+        ArrayList<Book> list = new ArrayList<>();
+        for(Book book : books){
+            if(book.getAuthor().equals(author)){
+                list.add(book);
+            }
+        }
+        return list;
+    }
 
 }
