@@ -55,4 +55,17 @@ public class UserController {
         }
     }
 
+    //delete-all-user API
+    @DeleteMapping("/delete-all-user")
+    public String deleteAllUsers() {
+        List<User> list = this.userRepo.findAll();
+        if(list.size()>0){
+            this.userRepo.deleteAll();
+            return "All user deleted successfully...";
+        }
+        else{
+            return "No user exist...";
+        }
+    }
+
 }
