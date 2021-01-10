@@ -7,11 +7,9 @@ import com.daadestroyer.LibraryManangementBackend.Repository.IssueBookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +22,21 @@ public class IssueBookController {
     @Autowired
     private BookRepo bookRepo;
 
+    // get-all-issued-book-by-book-id API
+    @GetMapping("/get-all-issued-book-by-book-id/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<IssueBook> getIssuedBookById(@PathVariable int id){
+        List<IssueBook> issueBookList = this.issueBookRepo.findAll();
+        ArrayList<IssueBook> foundAllBookList = new ArrayList<>();
+        for(IssueBook bookIssue : issueBookList){
+            if(bookIssue.getBook_id() == id){
+                foundAllBookList.add(bookIssue);
+            }
+        }
+        return foundAllBookList;
+    }
 
+    // book-issue API
     @PostMapping("/book-issue")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> issueBook(@RequestBody IssueBook issueBook) {
