@@ -28,7 +28,6 @@ public class IssueBookController {
         /*
         Optional<Book> list = this.bookRepo.findById(issueBook.getId());
         Book book = list.get();
-
         for (Book book : list) {
             if(book.getId() == issueBook.getBook_id()){
                 System.out.println("FOUND");
