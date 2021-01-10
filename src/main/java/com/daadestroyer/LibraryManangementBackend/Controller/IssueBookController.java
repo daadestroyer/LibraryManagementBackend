@@ -20,23 +20,13 @@ public class IssueBookController {
 
     @Autowired
     private IssueBookRepo issueBookRepo;
+
+
     private BookRepo bookRepo;
 
     @PostMapping("/book-issue")
     @ResponseStatus(HttpStatus.CREATED)
     public String issueBook(@RequestBody IssueBook issueBook) {
-        /*
-        Optional<Book> list = this.bookRepo.findById(issueBook.getId());
-        Book book = list.get();
 
-        for (Book book : list) {
-            if(book.getId() == issueBook.getBook_id()){
-                System.out.println("FOUND");
-            }
-        }*/
-        System.out.println(issueBook.getBook_id());
-        return "";
     }
-
-
 }
