@@ -17,9 +17,10 @@ public class Book_Details {
 
     private int noOfCopiesActual;
     private int noOfCopiesCurrent;
-    //private Category_Details category_details;
     private int publicationYear;
-
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Book_Category book_Category;
 
     public int getBookISBN() {
         return bookISBN;
@@ -77,10 +78,19 @@ public class Book_Details {
         this.publicationYear = publicationYear;
     }
 
-    public Book_Details() {
+    public Book_Category getBook_Category() {
+        return book_Category;
     }
 
-    public Book_Details(int bookISBN, String bookTitle, String language, Book_Publications book_publications, int noOfCopiesActual, int noOfCopiesCurrent, int publicationYear) {
+    public void setBook_Category(Book_Category book_Category) {
+        this.book_Category = book_Category;
+    }
+
+    public Book_Details() {
+        super();
+    }
+
+    public Book_Details(int bookISBN, String bookTitle, String language, Book_Publications book_publications, int noOfCopiesActual, int noOfCopiesCurrent, int publicationYear, Book_Category book_Category) {
         this.bookISBN = bookISBN;
         this.bookTitle = bookTitle;
         this.language = language;
@@ -88,6 +98,7 @@ public class Book_Details {
         this.noOfCopiesActual = noOfCopiesActual;
         this.noOfCopiesCurrent = noOfCopiesCurrent;
         this.publicationYear = publicationYear;
+        this.book_Category = book_Category;
     }
 
     @Override
@@ -100,6 +111,7 @@ public class Book_Details {
                 ", noOfCopiesActual=" + noOfCopiesActual +
                 ", noOfCopiesCurrent=" + noOfCopiesCurrent +
                 ", publicationYear=" + publicationYear +
+                ", book_Category=" + book_Category +
                 '}';
     }
 }
