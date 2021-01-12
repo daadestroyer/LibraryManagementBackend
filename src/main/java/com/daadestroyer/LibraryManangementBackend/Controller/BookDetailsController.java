@@ -20,7 +20,6 @@ public class BookDetailsController {
     private Book_Publications_Repo book_publications_repo;
     @Autowired
     private Book_Details_Repo book_details_repo;
-
     @Autowired
     private Book_Category_Repo book_category_repo;
 
@@ -47,4 +46,17 @@ public class BookDetailsController {
         book_details_repo.save(book_details);
         return "Book Added...";
     }
+
+    @GetMapping("/get-categories")
+    public List<Book_Category> getAllCategory(){
+        List<Book_Category> book_categories = this.book_category_repo.findAll();
+        return book_categories;
+    }
+
+    @GetMapping("/get-publication")
+    public List<Book_Publications> getPublications(){
+        List<Book_Publications> book_publications = this.book_publications_repo.findAll();
+        return book_publications;
+    }
+
 }
