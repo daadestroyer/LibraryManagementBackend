@@ -7,6 +7,8 @@ import com.daadestroyer.LibraryManangementBackend.Repository.Book_Category_Repo;
 import com.daadestroyer.LibraryManangementBackend.Repository.Book_Details_Repo;
 import com.daadestroyer.LibraryManangementBackend.Repository.Book_Publications_Repo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,6 +59,17 @@ public class BookDetailsController {
     public List<Book_Publications> getPublications(){
         List<Book_Publications> book_publications = this.book_publications_repo.findAll();
         return book_publications;
+    }
+
+    @GetMapping("/get-book-details-by-id/{id}")
+    public ResponseEntity<?> getBookDetails(@PathVariable int id){
+        if(book_details_repo.findById(id).isPresent()){
+            Optional<Book_Details> book_details_optional = book_details_repo.findById(id);
+            Book_Details book_details = book_details_optional.get();
+            return new ResponseEntity<>(book_details, HttpStatus.FOUND);
+        }else{
+            return new ResponseEntity<>("User Not Found...", HttpStatus.NOT_FOUND);
+        }
     }
 
 }
